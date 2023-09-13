@@ -92,4 +92,4 @@ if __name__ == '__main__':
     mp = pu.PlotUtilities('Value Function as Function of $\lambda$', '$\lambda$', 'None')
     labels = ['Value Function']
     colors = ['red']
-    mp.sub_plots(pis, [vf], labels, colors)
+    mp.sub_plots(lambda_values, [vf], labels, colors)
