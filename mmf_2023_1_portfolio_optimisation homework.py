@@ -37,9 +37,10 @@ if __name__ == '__main__':
     mp = pu.PlotUtilities('Mean and Variance of Portfolio Value as Function of $\pi$', '$\pi$', 'None')
     mp.sub_plots(pis, [portfolio_values, variance_portfolio], labels, colors)
 
-    mean_var_optimal_portfolio = ((1 / 1. / _x) *
+    _lambda = 1.
+    mean_var_optimal_portfolio = ((1 / _lambda / _x) *
                                   (p_opt.expected_value_return(_u, _d, _p) - _r) / p_opt.variance_return(_u, _d, _p))
     print('Mean-Variance Optimal Portfolio ' + str(mean_var_optimal_portfolio))
 
     mp = pu.PlotUtilities('Value Function', '$p$', 'None')
-    mp.multi_plot(probs, [[p_opt.value_function(_x, _r, 1., _u, _d, pr) for pr in probs]])
+    mp.multi_plot(probs, [[p_opt.value_function(_x, _r, _lambda, _u, _d, pr) for pr in probs]])
