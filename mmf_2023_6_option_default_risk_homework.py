@@ -14,9 +14,9 @@ Option Pricing With Default Risk - Homework #6
 """
 
 
-def _d1(s, threshold, sigma):
+def _d1(s, threshold, sigma, shift=0.):
 
-    return 1./sigma * np.log(threshold / s) + 0.5 * sigma
+    return 1./sigma * np.log(threshold / s) + 0.5 * sigma - shift
 
 
 def _h(z, rho, a, d1):
@@ -79,3 +79,18 @@ if __name__ == '__main__':
 
     mp = pu.PlotUtilities(chart_title, x_label, y_label)
     mp.multi_plot(rhos, [v])
+
+    '''
+    Value at Correlation $\rho = 1$.
+    '''
+    print(_a)
+    print(d1_v)
+    a_inv = dist.normal_cdf_inverse(_pd)
+    v_1 = 1. - dist.standard_normal_cdf(max(_a, d1_v))
+    print('Longform Value at Correlation +1: ' + str(v_1))
+
+    '''
+    Value at Correlation $\rho = -1$.
+    '''
+    v_m1 = 0. if a_inv >= - d1_v else (1.-_pd - dist.standard_normal_cdf(d1_v))
+    print('Longform Value at Correlation -1: ' + str(v_m1))
